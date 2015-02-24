@@ -4,9 +4,12 @@ library(shiny)
 shinyUI(pageWithSidebar(
     
     # Application title
-    headerPanel("Flag Expert"),
+    headerPanel(
+        h1("FlagExpert")
+        
+                ),
     
-    # Sidebar with a checkbox
+    # Sidebar with a checkbox, list and radiobuttons
     sidebarPanel(
         h3("Flag details"),
         selectInput("domc", "Dominant color:", 
@@ -22,15 +25,23 @@ shinyUI(pageWithSidebar(
                              "White" = "5",
                              "Black" = "6",
                              "Orange" = "7"
-                             ))
+                             )),
+        radioButtons("ftrs", "Features:",
+                     c("Any" = "any",
+                       "Circles" = "1",
+                       "Crosses" = "2",
+                       "Sun/Stars" = "3",
+                       "Icons" = "4",
+                       "Animates" = "5"))
         
     ),
     
     # 
     mainPanel(
-        h3("Countries"),
+        htmlOutput("n"),
+        tags$hr(),
         htmlOutput("map"),
-        textOutput("cnt"),
-        verbatimTextOutput("diag")
+        tags$hr(),
+        htmlOutput("cnt")
     )
 ))
