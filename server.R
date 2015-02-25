@@ -264,7 +264,7 @@ shinyServer(function(input, output) {
     output$n <- renderPrint({
             
             ds <- selector()
-            cat(paste("Countries/Flags:", nrow(ds)))
+            cat(paste("Countries with Flags:", nrow(ds)))
             
         })
         
