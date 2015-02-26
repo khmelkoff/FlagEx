@@ -1,40 +1,44 @@
 ###############################################################################
-# FlagEx Server
+# xFlags Server
 # author: khmelkoff@gmail.com
 ###############################################################################
 # TODO:
 # 1. Add new countries
-# 4. Add colors to the map
-# 5. UI
+# 2. Add colors to the map
 ###############################################################################
 
 
 # Load data and libraries #####################################################
 library(shiny)
 library(dplyr)
-#library(spam)
 #suppressPackageStartupMessages(library(googleVis))
 library(googleVis)
+library(ggplot2)
 
+# data
 url1 <- "https://archive.ics.uci.edu/ml/machine-learning-databases/flags/flag.data"
-url2 <- "https://archive.ics.uci.edu/ml/machine-learning-databases/flags/flag.names"
+
+# codebook
+#url2 <- "https://archive.ics.uci.edu/ml/machine-learning-databases/flags/flag.names"
 
 if (!file.exists("flag.data")) {
     file.create("flag.data")
     download.file(url1, "flag.data")
 }
 
-if (!file.exists("flag.names")) {
-    file.create("flag.names")
-    download.file(url2, "flag.names")
-}
+# if (!file.exists("flag.names")) {
+#     file.create("flag.names")
+#     download.file(url2, "flag.names")
+# }
 
 flag_data <- read.csv("flag.data", header = FALSE, as.is=TRUE)
-flag_names <- read.csv("flag.names", as.is=TRUE)
+# flag_names <- read.csv("flag.names", as.is=TRUE)
 
 # Data Processing #############################################################
 
-crosses <- flag_data$V20 + flag_data$V21 # the tot. number of crosses
+# crosses + saltires
+crosses <- flag_data$V20 + flag_data$V21 # the total number of crosses
+
 flag_data <- select(flag_data, old_country = V1, 
                     # colors
                     red = V11,
@@ -46,6 +50,7 @@ flag_data <- select(flag_data, old_country = V1,
                     orange = V17,
                     domcolor = V18,
                     # features
+                    language = V6,
                     circles = V19,
                     sunstars = V23,
                     icons = V26,
@@ -102,7 +107,7 @@ flag_data <- mutate(flag_data, country=country_names)
 # Filter the "actual" countries
 flag_data <- filter(flag_data, country != "old")
 
-flag_data <- cbind.data.frame(flag_data$country, flag_data[,2:14], 
+flag_data <- cbind.data.frame(flag_data$country, flag_data[,2:15], 
                               stringsAsFactors = FALSE)
 names(flag_data)[1] <- "country"
 
@@ -117,6 +122,7 @@ Russia <- data.frame(country = "Russia",
                     black = 0,
                     orange = 0,
                     domcolor = "red",
+                    language = 5,
                     circles = 0,
                     sunstars = 0,
                     icons = 0,
@@ -133,6 +139,7 @@ Kazakhstan <- data.frame(country = "Kazakhstan",
                      black = 0,
                      orange = 0,
                      domcolor = "blue",
+                     language = 6,
                      circles = 0,
                      sunstars = 1,
                      icons = 1,
@@ -149,6 +156,7 @@ Belarus <- data.frame(country = "Belarus",
                          black = 0,
                          orange = 0,
                          domcolor = "red",
+                         language = 5,
                          circles = 0,
                          sunstars = 0,
                          icons = 1,
@@ -165,12 +173,26 @@ Ukraine <- data.frame(country = "Ukraine",
                       black = 0,
                       orange = 0,
                       domcolor = "blue",
+                      language = 5,
                       circles = 0,
                       sunstars = 0,
                       icons = 0,
                       animates = 0,                    
                       crosses = 0)
 flag_data <- rbind(flag_data, Ukraine)
+
+languages <- c("English",
+              "Spanish",
+              "French",
+              "German",
+              "Slavic",
+              "Indo-European",
+              "Chinese",
+              "Arabic",
+              "Japanese/Turkish/Finnish/Magyar",
+              "Others")
+flag_data <- mutate(flag_data, language=factor(language, labels=languages))
+flag_data <- mutate(flag_data, count = 1)
 
 # Server logic ################################################################
 
@@ -226,7 +248,6 @@ shinyServer(function(input, output) {
                 }
                 
             }
-            
           
             countries
          })
@@ -235,6 +256,7 @@ shinyServer(function(input, output) {
     output$cnt <- renderPrint({
             
             ds <- selector()
+            ds <- arrange(ds, country)
             
             # Print with out NA function
             cutNA <- function(x) {
@@ -250,9 +272,9 @@ shinyServer(function(input, output) {
                 cat("<TABLE BORDER=0 WIDTH=100%>")
                 for (i in seq(1, nrow(ds), by=3)) {
                     cat("<TR>")
-                    cat("<TD>");cutNA(ds[i,1]);cat("</TD>")
-                    cat("<TD>");cutNA(ds[i+1,1]);cat("</TD>")
-                    cat("<TD>");cutNA(ds[i+2,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i+1,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i+2,1]);cat("</TD>")
                     cat("</TR>")    
                 }
                 cat("</TABLE>")
@@ -260,20 +282,57 @@ shinyServer(function(input, output) {
 
     })
     
-    # The Number of selected countries
-    output$n <- renderPrint({
+    # The Number of selected countries 1
+    output$n1 <- renderPrint({
             
             ds <- selector()
-            cat(paste("Countries with Flags:", nrow(ds)))
+            cat(paste("Countries:", nrow(ds)))
             
-        })
+    })
         
+    # The Number of selected flags 2
+    output$n2 <- renderPrint({
+        
+        ds <- selector()
+        cat(paste("Flags:", nrow(ds)))
+        
+    })
+    
+    
     # The worldmap
     output$map <- renderGvis({
             
             ds <- selector()
             gvisGeoChart(ds, locationvar = "country")
 
-        })
+    })
+    
+    # The language statistic
+    output$lang <- renderPlot({
+        
+            ds <- selector()
+            
+            if (nrow(ds) > 0) {
+                
+                # Awkward code to display on the chart full list of languages
+                # even if probability == 0
+                lng_prob <- sapply(languages, function(x){
+                    mean(grepl(x, ds$language))
+                })
+
+                lng_ds <- cbind.data.frame(languages, lng_prob)
+                
+                # Barplot
+                g <- ggplot(lng_ds, aes(x=languages, y=lng_prob))
+                g <- g + geom_bar(fill = "skyblue",
+                                  colour = "black", stat="identity")
+                g <- g + coord_flip()
+                g <- g + labs(x = "")
+                g <- g + labs(y = "probability")
+                g
+            
+            }
+        
+    })
 
 })

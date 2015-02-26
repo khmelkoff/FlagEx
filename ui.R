@@ -1,5 +1,5 @@
 ###############################################################################
-# FlagEx UI
+# xFlags UI
 # author: khmelkoff@gmail.com
 ###############################################################################
 
@@ -10,26 +10,30 @@ library(googleVis)
 
 # Define UI for application ################################################### 
 shinyUI(fluidPage(
-    
+
+    fluidRow(
+        column(12, "",     
+        
     # Application title
-    title = "The Flag Expert",
-    h1("FlagEx"),    
-    tags$hr(),
+    
+    title = "xFlags",
+    h1("The simple flags expert system"),    
+    
     
     tags$b(
         "Based on the Flags Dataset from the",
         tags$a(href="https://archive.ics.uci.edu/ml/datasets/Flags", 
                "UCI Machine Learning Repository"),
-        tags$br(),tags$br()),
-    
-    sidebarLayout(
+        tags$hr())
+        )
         
-        # Sidebar with a checkbox, list and radiobuttons
-        sidebarPanel(
-            
+    ),
+    
+    fluidRow(
+        column(3, "",
+
+            # Sidebar with a checkbox, list and radiobuttons
             tags$b("Choose the flag details"),
-            tags$br(),
-            tags$br(),
             
             selectInput("domc", "Dominant color:", 
                         choices = c("any", "black", "blue",
@@ -56,17 +60,32 @@ shinyUI(fluidPage(
                            "Animates" = "5"))
             
         ),
+        column(9, "",
         
-        # main panel with two tabs
-        mainPanel(
+            # Main panel with 3 tabs
             tabsetPanel (
                 tabPanel("Worldmap", htmlOutput("map")),
-                tabPanel("Country list",
-                         tags$b(p(htmlOutput("n"))),
+                tabPanel("Countries",
+                         tags$b(p(htmlOutput("n1"))),
                          htmlOutput("cnt")                     
+                ),
+                tabPanel("Languages", 
+                         tags$b(p(htmlOutput("n2"))),
+                         plotOutput("lang", 
+                                    width = "500px", 
+                                    height = "400px"),
                 ) 
             )    
         )
-
-    )
+    ),
+    
+    # Footer
+    fluidRow(
+        column(12, "",
+               tags$hr(),
+               tags$small("If you have found a mistake or your country is not listed, please contact",
+                    tags$b("khmelkoff@gmail.com") 
+                    )
+               )
+        )
 ))
