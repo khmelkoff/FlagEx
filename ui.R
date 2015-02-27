@@ -62,9 +62,49 @@ shinyUI(fluidPage(
         ),
         column(9, "",
         
-            # Main panel with 3 tabs
+            # Main panel with tabs
             tabsetPanel (
+                
+                tabPanel("Docs", 
+                         tags$br(),
+                         tags$p(tags$b("xFlags"),"- an application 
+                         that allows you to find the country 
+                         on the details of its flag", tags$br(), "and look 
+                         at the distribution of languages 
+                         for a given set of features."),
+                         
+                         tags$p("Select one of the tabs:", 
+                         tags$br(), tags$b("Worldmap"), " - Countries on the world map",
+                         tags$br(), tags$b("Countries"), " - List of the countries",
+                         tags$br(), tags$b("Languages"), " - language distribution in the chart"),
+
+                         tags$p("Choose a combination of details of the flag:",
+                         tags$br(), "The dominant color and/or some flags color 
+                         and/or other features (stars, circles, icons).",
+                         tags$br(), "Information on the tabs changes 
+                         every time you change your selection."),
+                         
+                         tags$p("Attention! The application uses the data of 1986,
+                         revised in a reproducible manner.",
+                         tags$br(), "Fixed 31 country name, removed 
+                         not actual names (USSR, DDR, Czechoslovakia etc)", 
+                         tags$br(), "added new countries (e.g. Kazakhstan, Russia)"),
+                         
+                         tags$p("Used R-packages:",
+                         tags$br(), "Shiny, dplyr, googleVis, ggplot2"),
+                         
+                         tags$p("Presentation:",
+                         tags$br(), tags$a(href="http://...", 
+                         "http://...")), 
+                                                   
+                         tags$p("Source code:",
+                         tags$br(), tags$a(href="http://github.com/khmelkoff/xFlags", 
+                         "http://github.com/khmelkoff/xFlags"))                         
+                         
+                ),
+                
                 tabPanel("Worldmap", htmlOutput("map")),
+                
                 tabPanel("Countries",
                          tags$b(p(htmlOutput("n1"))),
                          htmlOutput("cnt")                     
@@ -73,8 +113,8 @@ shinyUI(fluidPage(
                          tags$b(p(htmlOutput("n2"))),
                          plotOutput("lang", 
                                     width = "500px", 
-                                    height = "400px"),
-                ) 
+                                    height = "400px")
+                )
             )    
         )
     ),

@@ -64,27 +64,34 @@ corrNames <- function(x) {
     x <- sub("Antigua Barbuda", "Antigua and Barbuda", x)
     x <- sub("Argentine", "Argentina", x)
     x <- sub("British Virgin Isles", "old", x)
-    x <- sub("Brunei", "Brunei Darussalam", x)
+#    x <- sub("Brunei", "Brunei Darussalam", x)
     x <- sub("Burkina", "Burkina Faso", x)
     x <- sub("Burma", "Myanmar", x)
-    x <- sub("Cape Verde Islands", "Cabo Verde", x)
+    x <- sub("Cape Verde Islands", "Cape Verde", x)
     x <- sub("Comorro Islands", "Comoros", x)
+    x <- sub("Congo", "Dem. Rep. of Congo", x)
     x <- sub("Czechoslovakia", "old", x)
     x <- sub("Faeroes", "Faroe Islands", x)
     x <- sub("Falklands Malvinas", "Falkland Islands (Malvinas)", x)
     x <- sub("Germany DDR", "old", x)
     x <- sub("Germany FRG", "Germany", x) 
     x <- sub("Guinea Bissau", "Guinea-Bissau", x) 
-    x <- sub("Ivory Coast", "Cote d'Ivoire", x) 
+    x <- sub("Ivory Coast", "Cote d'Ivoire", x)
+
+    x <- sub("Kampuchea", "Cambodia", x)
+
     x <- sub("Malagasy", "Madagascar", x) 
     x <- sub("Maldive Islands", "Maldives", x) 
     x <- sub("Marianas", "old", x)
-    x <- sub("Sao Tome", "Sao Tome and Principe", x) 
+    x <- sub("Micronesia", "Federated States of Micronesia", x)
+    x <- sub("Parguay", "Paraguay", x)
+    x <- sub("Sao Tome", "Sao Tome and Principe", x)
+    x <- sub("Soloman Islands", "Solomon Islands", x)
     x <- sub("South Yemen", "Yemen", x)
     x <- sub("St Helena", "Saint Helena", x) 
     x <- sub("St Kitts Nevis", "Saint Kitts and Nevis", x)
     x <- sub("St Lucia", "Saint Lucia", x) 
-    x <- sub("St Vincent", "Saint Vincent", x)
+    x <- sub("St Vincent", "Saint Vincent and the Grenadines", x)
     x <- sub("Surinam", "Suriname", x) 
     x <- sub("Trinidad Tobago", "Trinidad and Tobago", x)
     x <- sub("Turks Cocos Islands", "Turks and Caicos Islands", x) 
@@ -93,8 +100,8 @@ corrNames <- function(x) {
     x <- sub("UK", "United Kingdom", x)
     x <- sub("USA", "United States", x) 
     x <- sub("USSR", "old", x)    
-    x <- sub("Vatican City", "Vatican", x)
-    x <- sub("Vietnam", "Viet Nam", x)
+#    x <- sub("Vatican City", "Vatican", x)
+#    x <- sub("Vietnam", "Viet Nam", x)
     x <- sub("Yugoslavia", "old", x)
     x <- sub("Western Samoa", "Samoa", x)    
     x <- sub("Zaire", "Kongo", x)    
@@ -194,6 +201,21 @@ languages <- c("English",
 flag_data <- mutate(flag_data, language=factor(language, labels=languages))
 flag_data <- mutate(flag_data, count = 1)
 
+# Test ########################################################################
+data(Population)
+flag_pics <- select(Population, Country, Flag)
+flag_pics <- arrange(flag_pics, Country)
+
+# c <- flag_pics$Country
+# sapply(c, function(x){
+#     if(x %in% flag_data$country) {
+#         
+#     } else {print(x)}
+#     
+# })
+
+
+
 # Server logic ################################################################
 
 shinyServer(function(input, output) {
@@ -258,6 +280,12 @@ shinyServer(function(input, output) {
             ds <- selector()
             ds <- arrange(ds, country)
             
+            ds <- merge(ds, flag_pics,
+                           by.x="country",
+                           by.y="Country",
+                        all.x=TRUE)
+            
+            
             # Print with out NA function
             cutNA <- function(x) {
                 if(!is.na(x)) {
@@ -267,14 +295,14 @@ shinyServer(function(input, output) {
                 }
             } 
 
-            # Format output to 3 columns
+            # Elastic print to 3 columns
             if (nrow(ds)>0) {
                 cat("<TABLE BORDER=0 WIDTH=100%>")
                 for (i in seq(1, nrow(ds), by=3)) {
                     cat("<TR>")
-                    cat("<TD width=33%>");cutNA(ds[i,1]);cat("</TD>")
-                    cat("<TD width=33%>");cutNA(ds[i+1,1]);cat("</TD>")
-                    cat("<TD width=33%>");cutNA(ds[i+2,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i,1]);cat(" ");cutNA(ds[i,17]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i+1,1]);cat(" ");cutNA(ds[i+1,17]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i+2,1]);cat(" ");cutNA(ds[i+2,17]);cat("</TD>")
                     cat("</TR>")    
                 }
                 cat("</TABLE>")
@@ -334,5 +362,5 @@ shinyServer(function(input, output) {
             }
         
     })
-
+    
 })
