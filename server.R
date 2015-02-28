@@ -9,10 +9,9 @@
 
 
 # Load data and libraries #####################################################
-library(shiny)
-library(dplyr)
-#suppressPackageStartupMessages(library(googleVis))
-library(googleVis)
+suppressPackageStartupMessages(library(shiny))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(googleVis))
 library(ggplot2)
 
 # data
@@ -64,12 +63,11 @@ corrNames <- function(x) {
     x <- sub("Antigua Barbuda", "Antigua and Barbuda", x)
     x <- sub("Argentine", "Argentina", x)
     x <- sub("British Virgin Isles", "old", x)
-#    x <- sub("Brunei", "Brunei Darussalam", x)
     x <- sub("Burkina", "Burkina Faso", x)
     x <- sub("Burma", "Myanmar", x)
     x <- sub("Cape Verde Islands", "Cape Verde", x)
     x <- sub("Comorro Islands", "Comoros", x)
-    x <- sub("Congo", "Dem. Rep. of Congo", x)
+    x <- sub("Congo", "DR Congo", x)
     x <- sub("Czechoslovakia", "old", x)
     x <- sub("Faeroes", "Faroe Islands", x)
     x <- sub("Falklands Malvinas", "Falkland Islands (Malvinas)", x)
@@ -77,9 +75,7 @@ corrNames <- function(x) {
     x <- sub("Germany FRG", "Germany", x) 
     x <- sub("Guinea Bissau", "Guinea-Bissau", x) 
     x <- sub("Ivory Coast", "Cote d'Ivoire", x)
-
     x <- sub("Kampuchea", "Cambodia", x)
-
     x <- sub("Malagasy", "Madagascar", x) 
     x <- sub("Maldive Islands", "Maldives", x) 
     x <- sub("Marianas", "old", x)
@@ -188,6 +184,487 @@ Ukraine <- data.frame(country = "Ukraine",
                       crosses = 0)
 flag_data <- rbind(flag_data, Ukraine)
 
+## +Estonia
+Estonia <- data.frame(country = "Estonia", 
+                      red = 0,
+                      green = 0,
+                      blue = 1,
+                      gold = 0,
+                      white = 1,
+                      black = 1,
+                      orange = 0,
+                      domcolor = "black",
+                      language = 5,
+                      circles = 0,
+                      sunstars = 0,
+                      icons = 0,
+                      animates = 0,                    
+                      crosses = 0)
+flag_data <- rbind(flag_data, Estonia)
+
+## +Latvia
+Latvia <- data.frame(country = "Latvia", 
+                      red = 1,
+                      green = 0,
+                      blue = 0,
+                      gold = 0,
+                      white = 1,
+                      black = 0,
+                      orange = 0,
+                      domcolor = "brown",
+                      language = 5,
+                      circles = 0,
+                      sunstars = 0,
+                      icons = 0,
+                      animates = 0,                    
+                      crosses = 0)
+flag_data <- rbind(flag_data, Latvia)
+
+## +Lithuania
+Lithuania <- data.frame(country = "Lithuania", 
+                     red = 1,
+                     green = 1,
+                     blue = 0,
+                     gold = 1,
+                     white = 0,
+                     black = 0,
+                     orange = 0,
+                     domcolor = "green",
+                     language = 5,
+                     circles = 0,
+                     sunstars = 0,
+                     icons = 0,
+                     animates = 0,                    
+                     crosses = 0)
+flag_data <- rbind(flag_data, Lithuania)
+
+## +Armenia
+Armenia <- data.frame(country = "Armenia", 
+                        red = 1,
+                        green = 0,
+                        blue = 1,
+                        gold = 1,
+                        white = 0,
+                        black = 0,
+                        orange = 0,
+                        domcolor = "red",
+                        language = 5,
+                        circles = 0,
+                        sunstars = 0,
+                        icons = 0,
+                        animates = 0,                    
+                        crosses = 0)
+flag_data <- rbind(flag_data, Armenia)
+
+## +Azerbaijan
+Azerbaijan <- data.frame(country = "Azerbaijan", 
+                      red = 1,
+                      green = 1,
+                      blue = 1,
+                      gold = 0,
+                      white = 0,
+                      black = 0,
+                      orange = 0,
+                      domcolor = "green",
+                      language = 9,
+                      circles = 0,
+                      sunstars = 1,
+                      icons = 1,
+                      animates = 0,                    
+                      crosses = 0)
+flag_data <- rbind(flag_data, Azerbaijan)
+
+## +Georgia
+Georgia <- data.frame(country = "Georgia", 
+                         red = 1,
+                         green = 0,
+                         blue = 0,
+                         gold = 0,
+                         white = 1,
+                         black = 0,
+                         orange = 0,
+                         domcolor = "white",
+                         language = 10,
+                         circles = 0,
+                         sunstars = 0,
+                         icons = 0,
+                         animates = 0,                    
+                         crosses = 1)
+flag_data <- rbind(flag_data, Georgia)
+
+## +Kyrgyzstan
+Kyrgyzstan <- data.frame(country = "Kyrgyzstan", 
+                      red = 1,
+                      green = 0,
+                      blue = 0,
+                      gold = 1,
+                      white = 0,
+                      black = 0,
+                      orange = 0,
+                      domcolor = "red",
+                      language = 9,
+                      circles = 0,
+                      sunstars = 1,
+                      icons = 1,
+                      animates = 0,                    
+                      crosses = 0)
+flag_data <- rbind(flag_data, Kyrgyzstan)
+
+## +Tajikistan
+Tajikistan <- data.frame(country = "Tajikistan", 
+                         red = 1,
+                         green = 1,
+                         blue = 0,
+                         gold = 1,
+                         white = 1,
+                         black = 0,
+                         orange = 0,
+                         domcolor = "white",
+                         language = 10,
+                         circles = 0,
+                         sunstars = 1,
+                         icons = 1,
+                         animates = 0,                    
+                         crosses = 0)
+flag_data <- rbind(flag_data, Tajikistan)
+
+## +Turkmenistan
+Turkmenistan <- data.frame(country = "Turkmenistan", 
+                         red = 1,
+                         green = 1,
+                         blue = 0,
+                         gold = 1,
+                         white = 1,
+                         black = 0,
+                         orange = 0,
+                         domcolor = "green",
+                         language = 9,
+                         circles = 0,
+                         sunstars = 0,
+                         icons = 1,
+                         animates = 0,                    
+                         crosses = 0)
+flag_data <- rbind(flag_data, Turkmenistan)
+
+## +Uzbekistan
+Uzbekistan <- data.frame(country = "Uzbekistan", 
+                           red = 1,
+                           green = 1,
+                           blue = 1,
+                           gold = 0,
+                           white = 1,
+                           black = 0,
+                           orange = 0,
+                           domcolor = "white",
+                           language = 9,
+                           circles = 0,
+                           sunstars = 1,
+                           icons = 0,
+                           animates = 0,                    
+                           crosses = 0)
+flag_data <- rbind(flag_data, Uzbekistan)
+
+## +Bosnia and Herzegovina
+Bosnia <- data.frame(country = "Bosnia and Herzegovina", 
+                         red = 0,
+                         green = 0,
+                         blue = 1,
+                         gold = 1,
+                         white = 1,
+                         black = 0,
+                         orange = 0,
+                         domcolor = "blue",
+                         language = 5,
+                         circles = 0,
+                         sunstars = 1,
+                         icons = 0,
+                         animates = 0,                    
+                         crosses = 0)
+flag_data <- rbind(flag_data, Bosnia)
+
+## +Croatia
+Croatia <- data.frame(country = "Croatia", 
+                     red = 1,
+                     green = 0,
+                     blue = 1,
+                     gold = 1,
+                     white = 1,
+                     black = 0,
+                     orange = 0,
+                     domcolor = "white",
+                     language = 5,
+                     circles = 0,
+                     sunstars = 1,
+                     icons = 1,
+                     animates = 1,                    
+                     crosses = 0)
+flag_data <- rbind(flag_data, Croatia)
+
+## +Czech Republic
+Czech <- data.frame(country = "Czech Republic", 
+                      red = 1,
+                      green = 0,
+                      blue = 1,
+                      gold = 0,
+                      white = 1,
+                      black = 0,
+                      orange = 0,
+                      domcolor = "red",
+                      language = 5,
+                      circles = 0,
+                      sunstars = 0,
+                      icons = 0,
+                      animates = 0,                    
+                      crosses = 0)
+flag_data <- rbind(flag_data, Czech)
+
+## +Serbia
+Serbia <- data.frame(country = "Serbia", 
+                    red = 1,
+                    green = 0,
+                    blue = 1,
+                    gold = 1,
+                    white = 1,
+                    black = 0,
+                    orange = 0,
+                    domcolor = "red",
+                    language = 5,
+                    circles = 0,
+                    sunstars = 0,
+                    icons = 1,
+                    animates = 1,                    
+                    crosses = 0)
+flag_data <- rbind(flag_data, Serbia)
+
+## +Slovakia
+Slovakia <- data.frame(country = "Slovakia", 
+                     red = 1,
+                     green = 0,
+                     blue = 1,
+                     gold = 0,
+                     white = 1,
+                     black = 0,
+                     orange = 0,
+                     domcolor = "blue",
+                     language = 5,
+                     circles = 0,
+                     sunstars = 0,
+                     icons = 1,
+                     animates = 0,                    
+                     crosses = 1)
+flag_data <- rbind(flag_data, Slovakia)
+
+## +Slovenia
+Slovenia <- data.frame(country = "Slovenia", 
+                       red = 1,
+                       green = 0,
+                       blue = 1,
+                       gold = 1,
+                       white = 1,
+                       black = 0,
+                       orange = 0,
+                       domcolor = "blue",
+                       language = 5,
+                       circles = 0,
+                       sunstars = 1,
+                       icons = 1,
+                       animates = 0,                    
+                       crosses = 0)
+flag_data <- rbind(flag_data, Slovenia)
+
+## +Moldova
+Moldova <- data.frame(country = "Moldova", 
+                       red = 1,
+                       green = 0,
+                       blue = 1,
+                       gold = 1,
+                       white = 0,
+                       black = 0,
+                       orange = 0,
+                       domcolor = "blue",
+                       language = 5,
+                       circles = 0,
+                       sunstars = 1,
+                       icons = 1,
+                       animates = 1,                    
+                       crosses = 1)
+flag_data <- rbind(flag_data, Moldova)
+
+## +East Timor
+Timor <- data.frame(country = "East Timor", 
+                      red = 1,
+                      green = 0,
+                      blue = 0,
+                      gold = 1,
+                      white = 1,
+                      black = 1,
+                      orange = 0,
+                      domcolor = "red",
+                      language = 10,
+                      circles = 0,
+                      sunstars = 1,
+                      icons = 1,
+                      animates = 0,                    
+                      crosses = 0)
+flag_data <- rbind(flag_data, Timor)
+
+## +Eritrea
+Eritrea <- data.frame(country = "Eritrea", 
+                    red = 1,
+                    green = 1,
+                    blue = 1,
+                    gold = 1,
+                    white = 0,
+                    black = 0,
+                    orange = 0,
+                    domcolor = "green",
+                    language = 8,
+                    circles = 0,
+                    sunstars = 1,
+                    icons = 1,
+                    animates = 0,                    
+                    crosses = 0)
+flag_data <- rbind(flag_data, Eritrea)
+
+## +Marshall Islands
+Marshalls <- data.frame(country = "Marshall Islands", 
+                      red = 0,
+                      green = 0,
+                      blue = 1,
+                      gold = 0,
+                      white = 1,
+                      black = 0,
+                      orange = 1,
+                      domcolor = "blue",
+                      language = 10,
+                      circles = 0,
+                      sunstars = 1,
+                      icons = 1,
+                      animates = 0,                    
+                      crosses = 0)
+flag_data <- rbind(flag_data, Marshalls)
+
+## +Montenegro
+Montenegro <- data.frame(country = "Montenegro", 
+                        red = 1,
+                        green = 1,
+                        blue = 1,
+                        gold = 1,
+                        white = 1,
+                        black = 0,
+                        orange = 0,
+                        domcolor = "red",
+                        language = 5,
+                        circles = 0,
+                        sunstars =0,
+                        icons = 1,
+                        animates = 1,                    
+                        crosses = 0)
+flag_data <- rbind(flag_data, Montenegro)
+
+## +Namibia
+Namibia <- data.frame(country = "Namibia", 
+                         red = 1,
+                         green = 1,
+                         blue = 1,
+                         gold = 0,
+                         white = 1,
+                         black = 0,
+                         orange = 0,
+                         domcolor = "green",
+                         language = 6,
+                         circles = 0,
+                         sunstars =0,
+                         icons = 1,
+                         animates = 1,                    
+                         crosses = 0)
+flag_data <- rbind(flag_data, Namibia)
+
+## +Palau
+Palau <- data.frame(country = "Palau", 
+                      red = 0,
+                      green = 0,
+                      blue = 1,
+                      gold = 1,
+                      white = 0,
+                      black = 0,
+                      orange = 0,
+                      domcolor = "blue",
+                      language = 1,
+                      circles = 1,
+                      sunstars =0,
+                      icons = 0,
+                      animates = 0,                    
+                      crosses = 0)
+flag_data <- rbind(flag_data, Palau)
+
+## +Western Sahara
+Sahara <- data.frame(country = "Western Sahara", 
+                    red = 1,
+                    green = 1,
+                    blue = 0,
+                    gold = 0,
+                    white = 1,
+                    black = 1,
+                    orange = 0,
+                    domcolor = "black",
+                    language = 3,
+                    circles = 0,
+                    sunstars =1,
+                    icons = 1,
+                    animates = 0,                    
+                    crosses = 0)
+flag_data <- rbind(flag_data, Sahara)
+
+Kongo <- data.frame(country = "Congo Republic", 
+                    red = 1,
+                    green = 1,
+                    blue = 0,
+                    gold = 1,
+                    white = 0,
+                    black = 0,
+                    orange = 0,
+                    domcolor = "green",
+                    language = 10,
+                    circles = 0,
+                    sunstars =1,
+                    icons = 1,
+                    animates = 0,                    
+                    crosses = 0)
+flag_data <- rbind(flag_data, Kongo)
+
+# remove single country datasets
+rm(Russia)
+rm(Belarus)
+rm(Kazakhstan)
+rm(Ukraine)
+rm(Estonia)
+rm(Latvia)
+rm(Lithuania)
+rm(Armenia)
+rm(Azerbaijan)
+rm(Georgia)
+rm(Kyrgyzstan)
+rm(Tajikistan)
+rm(Turkmenistan)
+rm(Uzbekistan)
+rm(Bosnia)
+rm(Croatia)
+rm(Czech)
+rm(Serbia)
+rm(Slovakia)
+rm(Slovenia)
+rm(Moldova)
+rm(Timor)
+rm(Eritrea)
+rm(Marshalls)
+rm(Montenegro)
+rm(Namibia)
+rm(Palau)
+rm(Sahara)
+rm(Kongo)
+
+# Add language factor #########################################################
 languages <- c("English",
               "Spanish",
               "French",
@@ -201,11 +678,15 @@ languages <- c("English",
 flag_data <- mutate(flag_data, language=factor(language, labels=languages))
 flag_data <- mutate(flag_data, count = 1)
 
-# Test ########################################################################
+# Add flags url ###############################################################
 data(Population)
 flag_pics <- select(Population, Country, Flag)
 flag_pics <- arrange(flag_pics, Country)
+flag_pics$Country[45] <- "DR Congo"
+flag_pics$Country[141] <- "Congo Republic"
 
+
+# for debbugging names
 # c <- flag_pics$Country
 # sapply(c, function(x){
 #     if(x %in% flag_data$country) {
@@ -213,6 +694,23 @@ flag_pics <- arrange(flag_pics, Country)
 #     } else {print(x)}
 #     
 # })
+
+# Add predominant color index for worldmap ####################################
+
+colors <- flag_data$domcolor
+colors <- sapply(colors, function(x) {
+    switch(x,
+           black = 1,
+           blue = 2,
+           brown = 3,
+           gold = 4,
+           green = 5,
+           orange = 6,
+           red = 7,
+           white = 8
+           )
+})
+flag_data <- mutate(flag_data, colindex = colors)
 
 
 
@@ -283,7 +781,7 @@ shinyServer(function(input, output) {
             ds <- merge(ds, flag_pics,
                            by.x="country",
                            by.y="Country",
-                        all.x=TRUE)
+                        all.x=FALSE) #FALSE - connly only with flag pics
             
             
             # Print with out NA function
@@ -291,7 +789,7 @@ shinyServer(function(input, output) {
                 if(!is.na(x)) {
                     cat(x)
                 } else {
-                    cat(" ")
+                    cat("&nbsp &nbsp &nbsp")
                 }
             } 
 
@@ -300,9 +798,9 @@ shinyServer(function(input, output) {
                 cat("<TABLE BORDER=0 WIDTH=100%>")
                 for (i in seq(1, nrow(ds), by=3)) {
                     cat("<TR>")
-                    cat("<TD width=33%>");cutNA(ds[i,1]);cat(" ");cutNA(ds[i,17]);cat("</TD>")
-                    cat("<TD width=33%>");cutNA(ds[i+1,1]);cat(" ");cutNA(ds[i+1,17]);cat("</TD>")
-                    cat("<TD width=33%>");cutNA(ds[i+2,1]);cat(" ");cutNA(ds[i+2,17]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i,18]);cat(" ");cutNA(ds[i,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i+1,18]);cat(" ");cutNA(ds[i+1,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i+2,18]);cat(" ");cutNA(ds[i+2,1]);cat("</TD>")
                     cat("</TR>")    
                 }
                 cat("</TABLE>")
@@ -327,11 +825,22 @@ shinyServer(function(input, output) {
     })
     
     
-    # The worldmap
+    # The worldmap ############################################################
     output$map <- renderGvis({
             
             ds <- selector()
-            gvisGeoChart(ds, locationvar = "country")
+
+            
+            color_json_vector <- "{values:[1,2,3,4,5,6,7,8], 
+                                colors:['black', 'blue',
+                                'brown', 'gold',
+                                'green', 'orange', 'red', 'white']}"
+            
+            gvisGeoChart(ds, locationvar = "country",
+                         colorvar = "colindex",
+                         options = list(
+                         colorAxis = color_json_vector     
+                             ))
 
     })
     

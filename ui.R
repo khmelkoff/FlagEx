@@ -5,8 +5,8 @@
 
 
 
-library(shiny)
-library(googleVis)
+suppressPackageStartupMessages(library(shiny))
+suppressPackageStartupMessages(library(googleVis))
 
 # Define UI for application ################################################### 
 shinyUI(fluidPage(
@@ -35,7 +35,7 @@ shinyUI(fluidPage(
             # Sidebar with a checkbox, list and radiobuttons
             tags$b("Choose the flag details"),
             
-            selectInput("domc", "Dominant color:", 
+            selectInput("domc", "Predominant color:", 
                         choices = c("any", "black", "blue",
                                     "brown", "gold",
                                     "green", "orange",
@@ -75,7 +75,7 @@ shinyUI(fluidPage(
                          
                          tags$p("Select one of the tabs:", 
                          tags$br(), tags$b("Worldmap"), " - Countries on the world map",
-                         tags$br(), tags$b("Countries"), " - List of the countries",
+                         tags$br(), tags$b("Countries"), " - List of the countries with flags",
                          tags$br(), tags$b("Languages"), " - language distribution in the chart"),
 
                          tags$p("Choose a combination of details of the flag:",
@@ -88,10 +88,14 @@ shinyUI(fluidPage(
                          revised in a reproducible manner.",
                          tags$br(), "Fixed 31 country name, removed 
                          not actual names (USSR, DDR, Czechoslovakia etc)", 
-                         tags$br(), "added new countries (e.g. Kazakhstan, Russia)"),
+                         tags$br(), "added 29 new names (e.g. Kazakhstan, Russia)"),
                          
                          tags$p("Used R-packages:",
                          tags$br(), "Shiny, dplyr, googleVis, ggplot2"),
+                         
+                         tags$p("Flag icon urls: Population data set (googleVis),
+                                Icons source: Wikipedia"), 
+                         
                          
                          tags$p("Presentation:",
                          tags$br(), tags$a(href="http://...", 
@@ -103,7 +107,12 @@ shinyUI(fluidPage(
                          
                 ),
                 
-                tabPanel("Worldmap", htmlOutput("map")),
+                tabPanel("Worldmap", 
+                         tags$br(),
+                         htmlOutput("map"),
+                         tags$br(),
+                         tags$p("Region color corresponding to the predominant color of the flag"
+                                , align="center")),
                 
                 tabPanel("Countries",
                          tags$b(p(htmlOutput("n1"))),
@@ -124,7 +133,7 @@ shinyUI(fluidPage(
         column(12, "",
                tags$hr(),
                tags$small("If you have found a mistake or your country is not listed, please contact",
-                    tags$b("khmelkoff@gmail.com") 
+                    tags$a(href="mailto:khmelkoff@gmail.com","khmelkoff@gmail.com") 
                     )
                )
         )
