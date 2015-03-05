@@ -12,7 +12,7 @@ library(ggplot2)
 
 
 # data
-url1 <- "http://archive.ics.uci.edu/ml/machine-learning-databases/flags/flag.data"
+url1 <- "https://archive.ics.uci.edu/ml/machine-learning-databases/flags/flag.data"
 
 # codebook
 #url2 <- "https://archive.ics.uci.edu/ml/machine-learning-databases/flags/flag.names"
