@@ -17,7 +17,7 @@ shinyUI(fluidPage(
     # Application title
     
     title = "xFlags",
-    h1("The simple flags expert system"),    
+    h1("The simple flag expert system"),    
     
     
     tags$b(

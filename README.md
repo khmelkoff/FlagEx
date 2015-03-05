@@ -1,6 +1,8 @@
+*Dear Peers,  
+this repository has been created in ten days before the course started  
+since I tried "Dev Data Products" for free in the last week of February.*
 
-
-# xFlags - The simple flags expert system
+# xFlags - The simple flag expert system
 
 
 **xFlags** - an application that allows you to find the country on the details of its flag and look at the distribution of languages for a given set of features.
