@@ -98,7 +98,7 @@ shinyUI(fluidPage(
                          
                          
                          tags$p("Presentation:",
-                         tags$br(), tags$a(href="http://...", 
+                         tags$br(), tags$a(href="http://... in work", 
                          "http://...")), 
                                                    
                          tags$p("Source code:",
