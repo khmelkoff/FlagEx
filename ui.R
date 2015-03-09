@@ -98,8 +98,8 @@ shinyUI(fluidPage(
                          
                          
                          tags$p("Presentation:",
-                         tags$br(), tags$a(href="http://... in work", 
-                         "http://...")), 
+                         tags$br(), tags$a(href="http://khmelkoff.github.io/xFlagspp/index.html", 
+                         "http://khmelkoff.github.io/xFlagspp/index.html")), 
                                                    
                          tags$p("Source code:",
                          tags$br(), tags$a(href="http://github.com/khmelkoff/xFlags", 

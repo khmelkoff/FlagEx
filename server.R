@@ -675,12 +675,21 @@ languages <- c("English",
 flag_data <- mutate(flag_data, language=factor(language, labels=languages))
 flag_data <- mutate(flag_data, count = 1)
 
+
 # Add flags url ###############################################################
 data(Population)
 flag_pics <- select(Population, Country, Flag)
 flag_pics <- arrange(flag_pics, Country)
 flag_pics$Country[45] <- "DR Congo"
 flag_pics$Country[141] <- "Congo Republic"
+flag_pics[196,1] <- "Greenland"
+flag_pics[196,2] <- "<img src=//upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_Greenland.svg/22px-Flag_of_Greenland.svg.png>"
+
+
+flag_data <- merge(flag_data, flag_pics,
+                   by.x="country",
+                   by.y="Country",
+                   all.x=FALSE) #FALSE - only with flag pics
 
 
 # for debbugging names
@@ -708,7 +717,6 @@ colors <- sapply(colors, function(x) {
            )
 })
 flag_data <- mutate(flag_data, colindex = colors)
-
 
 
 # Server logic ################################################################
@@ -765,7 +773,7 @@ shinyServer(function(input, output) {
                 }
                 
             }
-          
+            
             countries
          })
 
@@ -774,12 +782,6 @@ shinyServer(function(input, output) {
             
             ds <- selector()
             ds <- arrange(ds, country)
-            
-            ds <- merge(ds, flag_pics,
-                           by.x="country",
-                           by.y="Country",
-                        all.x=FALSE) #FALSE - connly only with flag pics
-            
             
             # Print with out NA function
             cutNA <- function(x) {
@@ -795,9 +797,9 @@ shinyServer(function(input, output) {
                 cat("<TABLE BORDER=0 WIDTH=100%>")
                 for (i in seq(1, nrow(ds), by=3)) {
                     cat("<TR>")
-                    cat("<TD width=33%>");cutNA(ds[i,18]);cat(" ");cutNA(ds[i,1]);cat("</TD>")
-                    cat("<TD width=33%>");cutNA(ds[i+1,18]);cat(" ");cutNA(ds[i+1,1]);cat("</TD>")
-                    cat("<TD width=33%>");cutNA(ds[i+2,18]);cat(" ");cutNA(ds[i+2,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i,17]);cat(" ");cutNA(ds[i,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i+1,17]);cat(" ");cutNA(ds[i+1,1]);cat("</TD>")
+                    cat("<TD width=33%>");cutNA(ds[i+2,17]);cat(" ");cutNA(ds[i+2,1]);cat("</TD>")
                     cat("</TR>")    
                 }
                 cat("</TABLE>")
